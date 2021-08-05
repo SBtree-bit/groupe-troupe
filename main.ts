@@ -1,40 +1,36 @@
-radio.onReceivedNumber(function on_received_number(receivedNumber: number) {
-    
-    if (registered < 1) {
-        registered = 1
-        num_people = receivedNumber
-        radio.sendNumber(receivedNumber + 1)
-        num_people += 1
+radio.onReceivedNumber(function (receivedNumber) {
+    if (joining == true) {
+        group.id = receivedNumber;
+        radio.setGroup(group.id)
+        radio.sendNumber(Id)
+        radio.onReceivedNumber(function (receivedNumber) {
+            group.members[group.members.length] = receivedNumber;
+            basic.showNumber(receivedNumber);
+        })
     }
-    
-    if (registered >= 1 && 0 == num_people + 1) {
-        num_people += 1
-    } else {
-        people.unshift(receivedNumber)
-    }
-    
 })
-let people : number[] = []
-let num_people = 0
-let registered = 0
-let id2 = randint(0, 9999)
-registered = 0
-if (input.lightLevel() > 100) {
-    radio.setGroup(100)
-} else {
-    radio.setGroup(input.lightLevel())
+radio.onReceivedString(function (receivedString) {
+    joining = true
+})
+let joining = false
+let Id = 0
+Id = Math.floor(Math.random() * 254 + 1);
+basic.showNumber(Id);
+let group = {
+    id: 0,
+    members: [Id]
 }
-
-music.playMelody("C D E F G A B C5 ", 150)
-basic.forever(function on_forever() {
-    
-})
-basic.forever(function on_forever2() {
-    
-    control.waitMicros(1000)
-    radio.sendValue("id", id2)
-    for (let index = 0; index < num_people; index++) {
-        radio.sendString("" + ("" + people.removeAt(0)))
+radio.setGroup(1)
+while (true) {
+    if (input.buttonIsPressed(Button.A) && group.id == 0) {
+        group.id = Id;
+        radio.setTransmitPower(2)
+        radio.sendString("NewGroup")
+        radio.sendNumber(group.id)
+        radio.setGroup(group.id)
+        radio.onReceivedNumber(function (receivedNumber) {
+            group.members[group.members.length] = receivedNumber;
+            basic.showNumber(receivedNumber)
+        })
     }
-    people = [0]
-})
+}
