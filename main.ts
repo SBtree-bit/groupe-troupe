@@ -5,6 +5,7 @@ radio.onReceivedNumber(function (receivedNumber) {
         radio.sendNumber(Id)
         radio.onReceivedNumber(function (receivedNumber) {
             group.members[group.members.length] = receivedNumber;
+            basic.showNumber(receivedNumber);
         })
     }
 })
