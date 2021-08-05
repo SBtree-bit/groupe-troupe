@@ -14,6 +14,7 @@ radio.onReceivedString(function (receivedString) {
 let joining = false
 let Id = 0
 Id = Math.random() * 254 + 1
+basic.showNumber(Id);
 let group = {
     id: 0,
     members: [Id]
@@ -28,6 +29,7 @@ radio.setTransmitPower(3.5)
         radio.setGroup(group.id)
         radio.onReceivedNumber(function (receivedNumber) {
             group.members[group.members.length] = receivedNumber;
+            basic.showNumber(receivedNumber)
         })
     }
 }
