@@ -3,7 +3,11 @@ let buttonPressed = false
 let groupId = 0
 let myId = Math.floor(Math.random() * 100000)
 
-basic.showNumber(myId);
+function join() {
+    radio.onReceivedValue(function (name, value) {
+        groupId = value;
+    });
+}
 
 while (true) {
     let joinGroup = 0
@@ -23,6 +27,7 @@ while (true) {
             }
             if (!(exit)) {
                 basic.showString("A")
+                join()
             }
             buttonPressed = false
         }
