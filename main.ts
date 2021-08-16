@@ -2,11 +2,37 @@ let exit = false
 let buttonPressed = false
 let groupId = 0
 let myId = Math.floor(Math.random() * 100000)
+radio.setGroup(1);
 
 function join() {
-    radio.onReceivedValue(function (name, value) {
-        groupId = value;
-    });
+    basic.showString("Check for groups");
+    for (let index = 0; index < 10000; index++) {
+        for (let index = 0; index < 100000; index++) {
+            radio.onReceivedValue(function (name, value) {
+                if (name == "NewGroup") {
+                    groupId = value;
+                }
+            });
+            if (groupId != 0) {
+                exit = true
+                break;
+            }
+        }
+        if (exit) {
+            break;
+        }
+    }
+    if (!exit)
+    {
+        basic.showString("New Group");
+        groupId = myId;
+        radio.sendNumber(0);
+        for (let index = 0; index < 10000; index++) {
+            for (let index = 0; index < 100000; index++) {
+                radio.sendValue("NewGroup", myId);
+            }
+        }
+    }
 }
 
 while (true) {
@@ -26,8 +52,7 @@ while (true) {
                 }
             }
             if (!(exit)) {
-                basic.showString("A")
-                join()
+                join();
             }
             buttonPressed = false
         }
