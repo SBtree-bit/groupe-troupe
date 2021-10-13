@@ -26,6 +26,17 @@ let distance = 0
 distance = 5
 radio.setGroup(0)
 basic.showIcon(IconNames.Heart)
-loops.everyInterval(1, function () {
+let hot_cold = false
+
+basic.forever(function () {
     radio.sendNumber(0)
+    if (hot_cold) {
+        if (radio.receivedPacket(RadioPacketProperty.SignalStrength) <= -95) {
+            basic.showIcon(IconNames.SmallDiamond)
+        } else if (radio.receivedPacket(RadioPacketProperty.SignalStrength) <= -80) {
+            basic.showIcon(IconNames.Diamond)
+        } else {
+            basic.showIcon(IconNames.Square)
+        }
+    }
 })
