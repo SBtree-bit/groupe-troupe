@@ -4,8 +4,8 @@ radio.onReceivedNumber(function (receivedNumber) {
         basic.showIcon(IconNames.Skull)
     }
 })
-input.onButtonPressed(Button.A, function () {
-    radio.sendNumber(0)
+loops.everyInterval(1, function () {
+    radio.sendNumber(0);
 })
 let distance = 0
 distance = 5
