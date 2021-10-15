@@ -1,5 +1,5 @@
 radio.onReceivedNumber(function (receivedNumber) {
-    if (radio.receivedPacket(RadioPacketProperty.SignalStrength) < -128 + distance / 11) {
+    if (radio.receivedPacket(RadioPacketProperty.SignalStrength) < -128 + distance * 11) {
         music.playTone(392, music.beat(BeatFraction.Sixteenth))
         basic.showIcon(IconNames.Skull)
     } else {
@@ -23,7 +23,7 @@ input.onButtonPressed(Button.B, function() {
 })
 
 let distance = 0
-distance = 5
+distance = 3
 radio.setGroup(0)
 basic.showIcon(IconNames.Heart)
 let hot_cold = false
