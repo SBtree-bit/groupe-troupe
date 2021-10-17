@@ -3,9 +3,9 @@ radio.onReceivedNumber(function (receivedNumber) {
         music.playTone(392, music.beat(BeatFraction.Whole))
         basic.showIcon(IconNames.Skull)
     } else {
-        if (radio.receivedPacket(RadioPacketProperty.SignalStrength) < -128 + 1 * 11) {
+        if (radio.receivedPacket(RadioPacketProperty.SignalStrength) < (-128 + (2 * 11))) {
             basic.showIcon(IconNames.SmallDiamond)
-        } else if (radio.receivedPacket(RadioPacketProperty.SignalStrength) < -128 + 5 * 11) {
+        } else if (radio.receivedPacket(RadioPacketProperty.SignalStrength) < (-128 + (5 * 11))) {
             basic.showIcon(IconNames.Diamond)
         } else {
             basic.showIcon(IconNames.Square)
